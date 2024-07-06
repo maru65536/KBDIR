@@ -1,23 +1,50 @@
 // pages/ir_list.js
-import { useEffect, useState } from 'react';
+import React from 'react';
 
-export default function IRList() {
-  const [irList, setIrList] = useState([]);
+const IrList = ({ irList, error }) => {
+  if (error) {
+    return <div>Error: {error}</div>;
+  }
 
-  useEffect(() => {
-    fetch('/api/ir')
-      .then((res) => res.json())
-      .then((data) => setIrList(data));
-  }, []);
+  if (!Array.isArray(irList)) {
+    return <div>Error: Data is not in the expected format.</div>;
+  }
 
   return (
     <div>
-      <h1>IR一覧</h1>
+      <h1>IR List</h1>
       <ul>
         {irList.map((ir) => (
-          <li key={ir.id}>{ir.title}</li>
+          <li key={ir.id}>
+            {ir.name} - {ir.description}
+          </li>
         ))}
       </ul>
     </div>
   );
+};
+
+export async function getServerSideProps() {
+  try {
+    const res = await fetch('http://localhost:3000/api/ir_list');
+    if (!res.ok) {
+      throw new Error(`Failed to fetch data: ${res.status} ${res.statusText}`);
+    }
+    const irList = await res.json();
+    return {
+      props: {
+        irList,
+      },
+    };
+  } catch (error) {
+    console.error('Error fetching IR list:', error);
+    return {
+      props: {
+        irList: [],
+        error: error.message,
+      },
+    };
+  }
 }
+
+export default IrList;
