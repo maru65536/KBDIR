@@ -1,4 +1,3 @@
-// pages/ir_list.js
 import React from 'react';
 
 const IrList = ({ irList, error }) => {
@@ -13,13 +12,26 @@ const IrList = ({ irList, error }) => {
   return (
     <div>
       <h1>IR List</h1>
-      <ul>
-        {irList.map((ir) => (
-          <li key={ir.id}>
-            {ir.name} - {ir.description}
-          </li>
-        ))}
-      </ul>
+      <table>
+        <thead>
+          <tr>
+            <th>Title</th>
+            <th>Subtitle</th>
+            <th>URL</th>
+            <th>Type</th>
+          </tr>
+        </thead>
+        <tbody>
+          {irList.map((ir) => (
+            <tr key={ir.id}>
+              <td>{ir.title}</td>
+              <td>{ir.subtitle}</td>
+              <td><a href={ir.url}>{ir.url}</a></td>
+              <td>{ir.ir_type}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 };

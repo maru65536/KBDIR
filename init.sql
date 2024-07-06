@@ -45,4 +45,25 @@ CREATE TABLE songs (
     coefficient REAL
 );
 
-INSERT INTO users (handle_name, department, year, twitter_id, comment, email, password) VALUES ('admin', 'admin学部', 1, '@admin', 'adminです', 'admin@example.com', 'adminpass');
+INSERT INTO users 
+VALUES (
+    'admin',
+    'admin学部',
+    1, 
+    '@admin', 
+    'adminです', 
+    'admin@example.com', 
+    'adminpass'
+);
+
+INSERT INTO ir
+VALUES (
+    'テストIR',
+    '#1',
+    'http://example.com/ir1',
+    'KBM',
+    '2024-07-01 09:00:00',
+    '2024-07-08 00:00:00',
+    '2024-07-08 09:00:00',
+    '2024-07-15 00:00:00'
+);
